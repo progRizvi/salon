@@ -23,19 +23,21 @@ class SslCommerzPaymentController extends Controller
 
     public function index(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
         $bookings = Booking::whereDate("created_at", now())->where('service_id', $request->service_id)->get();
         $service = Service::find($request->service_id);
+
+        // if ($bookings->where() >= $service->available_seat) {
+        //     notify()->error("Booking Full");
+        //     return back();
+        // }
 
         if ($bookings->count() >= $service->available_seat) {
             notify()->error("Booking Full");
             return back();
         }
-        if ($bookings >= $service->available_seat) {
-            notify()->error("Booking Full");
-            return back();
-        }
+
         # Here you have to receive all the order data to initate the payment.
         # Let's say, your oder transaction informations are saving in a table called "orders"
         # In "orders" table, order unique identity is "transaction_id". "status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
@@ -52,8 +54,9 @@ class SslCommerzPaymentController extends Controller
         $post_data['service_id'] = $request->service_id;
         $post_data['cus_city'] = "";
         $post_data['cus_state'] = "";
+        $post_data['cus_phone'] = '8801XXXXXXXXX';
         $post_data['cus_postcode'] = "";
-        $post_data['booking_date'] = $request->booking_date;
+        $post_data['booking_date'] = $request->bookings_date;
         $post_data['booking_time'] = $request->booking_time;
         $post_data['phone_number'] = $request->phone_number;
         $post_data['cus_fax'] = "";
@@ -182,14 +185,12 @@ class SslCommerzPaymentController extends Controller
 
         $tran_id = $request->input('tran_id');
         $amount = $request->input('booking_bill');
-        $currency = $request->input('currency');
 
         $sslc = new SslCommerzNotification();
 
         #Check order status in order tabel against the transaction id or order id.
-        $order_details = DB::table('orders')
-            ->where('transaction_id', $tran_id)
-            ->select('transaction_id', 'status', 'currency', 'booking_bill')->first();
+        $order_details = Booking::where('transaction_id', $tran_id)
+            ->select('transaction_id', 'status', 'booking_bill')->first();
 
         if ($order_details->status == 'Pending') {
             $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency);
@@ -225,7 +226,7 @@ class SslCommerzPaymentController extends Controller
         $tran_id = $request->input('tran_id');
 
         $order_details = Booking::where('transaction_id', $tran_id)
-            ->select('transaction_id', 'status', 'currency', 'booking_bill')->first();
+            ->select('transaction_id', 'status', 'booking_bill')->first();
 
         if ($order_details->status == 'Pending') {
             $update_product = Booking::where('transaction_id', $tran_id)
@@ -244,7 +245,7 @@ class SslCommerzPaymentController extends Controller
         $tran_id = $request->input('tran_id');
 
         $order_details = Booking::where('transaction_id', $tran_id)
-            ->select('transaction_id', 'status', 'currency', 'booking_bill')->first();
+            ->select('transaction_id', 'status', 'booking_bill')->first();
 
         if ($order_details->status == 'Pending') {
             $update_product = Booking::where('transaction_id', $tran_id)
@@ -267,7 +268,7 @@ class SslCommerzPaymentController extends Controller
             #Check order status in order tabel against the transaction id or order id.
             $order_details = DB::table('orders')
                 ->where('transaction_id', $tran_id)
-                ->select('transaction_id', 'status', 'currency', 'amount')->first();
+                ->select('transaction_id', 'status', 'amount')->first();
 
             if ($order_details->status == 'Pending') {
                 $sslc = new SslCommerzNotification();
