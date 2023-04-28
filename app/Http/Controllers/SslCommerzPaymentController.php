@@ -32,7 +32,7 @@ class SslCommerzPaymentController extends Controller
             notify()->error("Booking Full");
             return back();
         }
-        if ($bookings->count() >= $service->available_seat) {
+        if ($bookings >= $service->available_seat) {
             notify()->error("Booking Full");
             return back();
         }
