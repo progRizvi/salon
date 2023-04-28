@@ -9,7 +9,7 @@ class BookingController extends Controller
 {
     public function index()
     {
-        $bookings = Booking::paginate(10);
+        $bookings = Booking::orderBy("id", "DESC")->paginate(10);
         return view("backend.pages.bookings.list", compact("bookings"));
     }
     public function create()
