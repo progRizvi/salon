@@ -19,6 +19,7 @@ class CreateBookingsTable extends Migration
             $table->integer('user_id');
             $table->string('phone_number')->nullable();
             $table->string('status')->default('pending');
+            $table->string("payment_status", 10)->default('due');
             $table->date('booking_date');
             $table->string('booking_time', 500);
             $table->integer('quantity')->default(1);

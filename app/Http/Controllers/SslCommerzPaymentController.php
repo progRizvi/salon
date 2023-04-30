@@ -58,6 +58,8 @@ class SslCommerzPaymentController extends Controller
         $post_data['cus_postcode'] = "";
         $post_data['booking_date'] = $request->bookings_date;
         $post_data['booking_time'] = $request->booking_time;
+        $post_data['adult'] = $request["adult-selection"];
+        $post_data['children'] = $request["child-selection"];
         $post_data['phone_number'] = $request->phone_number;
         $post_data['cus_fax'] = "";
 
@@ -91,6 +93,8 @@ class SslCommerzPaymentController extends Controller
                 'status' => 'pending',
                 'booking_date' => $post_data['booking_date'],
                 'booking_time' => $post_data['booking_time'],
+                'adult' => $post_data['adult'],
+                'children' => $post_data['children'],
                 'quantity' => '1',
                 'comment' => '',
                 'booking_bill' => $post_data['total_amount'],

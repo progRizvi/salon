@@ -16,7 +16,7 @@
                                                 <i class="icon nalika-home"></i>
                                             </div>
                                             <div class="breadcomb-ctn">
-                                                <h2>Edit` Service</h2>
+                                                <h2>Edit Booking</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -38,29 +38,27 @@
 
                                 <div id="myTabContent" class="tab-content custom-product-edit">
                                     <div class="product-tab-list tab-pane fade active in" id="description">
-                                        <form action="service.store" method="post">
+                                        <form action="{{ route('bookings.update', $booking->id) }}" method="post">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                     <div class="review-content-section">
-                                                        <div class="input-group mg-b-pro-edt">
-                                                            <span class="input-group-addon"><i class="icon nalika-user"
-                                                                    aria-hidden="true"></i></span>
-                                                            <input type="text" class="form-control"
-                                                                placeholder="First Name">
-                                                        </div>
+                                                        <select name="select"
+                                                            class="form-control pro-edt-select form-control-primary mg-b-pro-edt"
+                                                            disabled>
+                                                            @foreach ($services as $service)
+                                                                <option value="{{ $service->id }}"
+                                                                    @if ($service->id == $service->id) selected="selected" @endif>
+                                                                    {{ $service->title }}</option>
+                                                            @endforeach
+                                                        </select>
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="icon nalika-edit"
                                                                     aria-hidden="true"></i></span>
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Product Title">
+                                                            <input type="date" class="form-control"
+                                                                placeholder="Product Title" name="date">
                                                         </div>
-                                                        <div class="input-group mg-b-pro-edt">
-                                                            <span class="input-group-addon"><i class="fa fa-usd"
-                                                                    aria-hidden="true"></i></span>
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Regular Price">
-                                                        </div>
+
                                                         <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><i class="icon nalika-new-file"
                                                                     aria-hidden="true"></i></span>
@@ -117,7 +115,8 @@
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <div class="text-center custom-pro-edt-ds">
                                                         <button type="submit"
-                                                            class="btn btn-ctl-bt waves-effect waves-light m-r-10">Add
+                                                            class="btn btn-ctl-bt waves-effect waves-light m-r-10">
+                                                            Update
                                                         </button>
                                                     </div>
                                                 </div>

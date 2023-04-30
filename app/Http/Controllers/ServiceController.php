@@ -10,7 +10,7 @@ class ServiceController extends Controller
 {
     public function index()
     {
-        $services = Service::all();
+        $services = Service::paginate(10);
 
         return view("backend.pages.services.list", compact("services"));
     }

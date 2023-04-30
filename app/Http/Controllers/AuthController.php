@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -13,7 +15,29 @@ class AuthController extends Controller
     }
     public function registerStore(Request $request)
     {
-        return view('auth.registration');
+        $validation = Validator::make($request->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email|unique:users',
+            'phone' => 'unique:users,phone',
+            'password' => 'required|confirmed',
+        ]);
+        if ($validation->fails()) {
+            foreach ($validation->errors()->all() as $error) {
+                notify()->error($error);
+            }
+            return back();
+        }
+        $data = $request->except("_token", "password_confirmation");
+        $data['password'] = bcrypt($request->password);
+        $data['is_admin'] = 0;
+        $user = User::create($data);
+        if ($user) {
+            notify()->success("Registration Success");
+            return to_route('login');
+        }
+        notify()->error("Registration Failed");
+        return back();
 
     }
     public function loginForm()

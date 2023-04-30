@@ -52,6 +52,7 @@
     <!-- calendar CSS
   ============================================ -->
     <link rel="stylesheet" href="{{ url('css/calendar/fullcalendar.min.css') }}">
+    <link href='{{ asset('line-awesome/css/line-awesome.min.css') }}' rel='stylesheet'>
     <link rel="stylesheet" href="{{ url('css/calendar/fullcalendar.print.min.css') }}">
     <!-- style CSS
   ============================================ -->
@@ -68,6 +69,18 @@
             margin-top: 100px;
             z-index: 10000;
         }
+
+        .custom-pagination .pagination div {
+            background: #152036;
+            padding: 7px 5px;
+        }
+
+        .custom-pagination .pagination span,
+        .custom-pagination .pagination a {
+            margin-right: 10px;
+            background: transparent;
+            color: white;
+        }
     </style>
 </head>
 
@@ -76,27 +89,23 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
+
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
+
             <div class="sidebar-header">
                 <a href=""><img class="main-logo" src="img/logo/logo.png" alt="" width="92px" /></a>
-                <strong><img src="img/logo/logosn.png" alt="" /></strong>
+                <strong><img src="img/logo/logo.png" alt="" /></strong>
             </div>
             <div class="nalika-profile">
-                <div class="profile-dtl">
-                    <a href="#"><img src="img/notification/4.jpg" alt="" /></a>
+                <div class="profile-dtl" style="display: flex; flex-direction: column; align-items: center;">
+                    <a href="#"><img
+                            src="{{ auth()->user()->avatar != null ? url('/uploads/', auth()->user()->avatar) : url('images/profile/default.jpg') }}"
+                            alt="" /></a>
                     <h2>{{ auth()->user()->first_name }} <span class="min-dtn">{{ auth()->user()->last_name }}</span>
                     </h2>
                 </div>
-                <div class="profile-social-dtl">
-                    <ul class="dtl-social">
-                        <li><a href="#"><i class="icon nalika-facebook"></i></a></li>
-                        <li><a href="#"><i class="icon nalika-twitter"></i></a></li>
-                        <li><a href="#"><i class="icon nalika-linkedin"></i></a></li>
-                    </ul>
-                </div>
             </div>
-
             {{-- sidebar --}}
             @include('backend.fixed.sidebar')
         </nav>

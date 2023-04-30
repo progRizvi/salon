@@ -94,39 +94,54 @@
         </div>
     </div>
 
-    <div class="author-area-pro" style="margin-top:30px; margin-bottom:30px">
+    <div class="product-status mg-b-30" style="margin-top:20px">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="personal-info-wrap">
-                        <div class="text-white" style="padding-top:30px;padding-bottom:30px">
-                            <h4 style="font-size:1.64rem; padding-top:10px; line-height:110%">This Month</h4>
-                            <p style="font-size:1rem; padding-bottom:20px; line-height:110%">Total bookings</p>
-                            <h4 style="font-size:2.92rem; line-height:110%">{{ $countBookings['thisMonth'] }}</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="author-widgets-single res-mg-t-30">
-                        <div class="text-white" style="padding-top:30px;padding-bottom:30px">
-                            <h4 style="font-size:1.64rem; padding-top:10px; line-height:110%">Last Month</h4>
-                            <p style="font-size:1rem; padding-bottom:20px; line-height:110%">Total bookings</p>
-                            <h4 style="font-size:2.92rem; line-height:110%">{{ $countBookings['lastMonth'] }}</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="personal-info-wrap personal-info-ano res-mg-t-30">
-                        <div class="text-white" style="padding-top:30px;padding-bottom:30px">
-                            <h4 style="font-size:1.64rem; padding-top:10px; line-height:110%">Till Now
-                            </h4>
-                            <p style="font-size:1rem; padding-bottom:20px; line-height:110%">Total bookings</p>
-                            <h4 style="font-size:2.92rem; line-height:110%">{{ $countBookings['totalBookings'] }}</h4>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="product-status-wrap">
+                        <h4>Bookings</h4>
+                        <table>
+                            <tr>
+                                <th>Id</th>
+                                <th>Service</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Quantity</th>
+                                <th>Client</th>
+                                <th>Bill</th>
+                                <th>Payment Status</th>
+                            </tr>
+                            {{-- @dd($bookings) --}}
+                            @foreach ($bookings as $key => $booking)
+                                <tr>
+                                    <td>{{ $key + $bookings->firstItem() }}</td>
+                                    <td>{{ $booking->service->title }}</td>
+                                    <td>
+                                        @if ($booking->status == 'pending')
+                                            <span class="badge text-bg-warning text-warning">pending</span>
+                                        @else
+                                            <span class="badge text-bg-warning text-success">Confirmed</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $booking->booking_date }}</td>
+                                    <td>{{ $booking->booking_time }}</td>
+                                    <td>{{ ($booking->adult != null ? $booking->adult : 0) + ($booking->children != null ? $booking->adult : 0) }}
+                                    </td>
+                                    <td>{{ $booking->user->name }}</td>
+                                    <td>BDT {{ $booking->booking_bill }}</td>
+                                    <td>{{ $booking->payment_status }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                        <div class="custom-pagination">
+                            <ul class="pagination">
+                                {{ $bookings->links() }}
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection

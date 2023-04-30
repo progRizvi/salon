@@ -9,28 +9,31 @@
                                 <div class="menu-switcher-pro">
                                     <button type="button" id="sidebarCollapse"
                                         class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
-                                        <i class="icon nalika-menu-task"></i>
+                                        <i class="las la-bars"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
                                 <div class="header-top-menu tabl-d-n hd-search-rp">
                                     <div class="breadcome-heading">
+                                        {{--
                                         <form role="search" class="">
                                             <input type="text" placeholder="Search..." class="form-control">
                                             <a href=""><i class="fa fa-search"></i></a>
                                         </form>
+                                         --}}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                                 <div class="header-right-info">
                                     <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                        {{--
                                         <li class="nav-item dropdown">
                                             <a href="#" data-toggle="dropdown" role="button"
-                                                aria-expanded="false" class="nav-link dropdown-toggle"><i
-                                                    class="icon nalika-mail" aria-hidden="true"></i><span
-                                                    class="indicator-ms"></span></a>
+                                                aria-expanded="false" class="nav-link dropdown-toggle">
+                                                <i class="las la-envelope"></i>
+                                                <span class="indicator-ms"></span></a>
                                             <div role="menu"
                                                 class="author-message-top dropdown-menu animated zoomIn">
                                                 <div class="message-single-top">
@@ -95,6 +98,8 @@
                                                 </div>
                                             </div>
                                         </li>
+                                         --}}
+                                        {{--
                                         <li class="nav-item"><a href="#" data-toggle="dropdown" role="button"
                                                 aria-expanded="false" class="nav-link dropdown-toggle"><i
                                                     class="icon nalika-alarm" aria-hidden="true"></i><span
@@ -163,30 +168,31 @@
                                                 </div>
                                             </div>
                                         </li>
+                                         --}}
                                         <li class="nav-item">
                                             <a href="#" data-toggle="dropdown" role="button"
                                                 aria-expanded="false" class="nav-link dropdown-toggle">
-                                                <i class="icon nalika-user"></i>
+                                                <i class="las la-user"></i>
                                                 <span class="admin-name">{{ auth()->user()->first_name }}
                                                     {{ auth()->user()->last_name }}</span>
-                                                <i class="icon nalika-down-arrow nalika-angle-dw"></i>
+                                                <i class="las la-angle-down"></i>
                                             </a>
                                             <ul role="menu"
                                                 class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                <li><a href="#"><span
-                                                            class="icon nalika-user author-log-ic"></span> My
+                                                <li><a href="{{ route('myprofile') }}">
+                                                        <i class="las la-user-tie"></i> My
                                                         Profile</a>
                                                 </li>
                                                 <li>
                                                     <a href="{{ route('logout') }}">
-                                                        <span class="icon nalika-unlocked author-log-ic"></span>
+                                                        <i class="las la-unlock"></i>
                                                         Log Out</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li class="nav-item nav-setting-open"><a href="#"
-                                                data-toggle="dropdown" role="button" aria-expanded="false"
-                                                class="nav-link dropdown-toggle"><i
+                                        {{--
+                                        <li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown"
+                                                role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i
                                                     class="icon nalika-menu-task"></i></a>
 
                                             <div role="menu"
@@ -682,6 +688,7 @@
                                                 </div>
                                             </div>
                                         </li>
+                                         --}}
                                     </ul>
                                 </div>
                             </div>
@@ -739,9 +746,8 @@
                                         <li><a href="500.html">500 Page</a></li>
                                     </ul>
                                 </li>
-                                <li><a data-toggle="collapse" data-target="#Miscellaneousmob"
-                                        href="#">Interface <span
-                                            class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
+                                <li><a data-toggle="collapse" data-target="#Miscellaneousmob" href="#">Interface
+                                        <span class="admin-project-icon nalika-icon nalika-down-arrow"></span></a>
                                     <ul id="Miscellaneousmob" class="collapse dropdown-header-top">
                                         <li><a href="google-map.html">Google Map</a>
                                         </li>

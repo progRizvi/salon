@@ -44,15 +44,14 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-6">
-                                    <a href="#" class="bluish-text">
-                                        {{-- <i class="las la-home" /> --}}
+                                    <a href="{{ route('home') }}" class="bluish-text">
+                                        <i class="las la-home"></i>
                                         Back to Home
                                     </a>
                                 </div>
                                 <div class="form-group col-6 text-right">
-                                    <a href="#" class="bluish-text">
-                                        {{-- <i class="las la-lock" /> --}}
-                                        Forgot Password
+                                    <a href="{{ route('register.form') }}" class="bluish-text">
+                                        Register
                                     </a>
                                 </div>
                             </div>

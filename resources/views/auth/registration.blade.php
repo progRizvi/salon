@@ -6,7 +6,8 @@
                 <div class="row">
                     <div class="col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8 col-xl-4 offset-xl-8">
                         <div class="sign-in-sign-up-content">
-                            <form class="sign-in-sign-up-form">
+                            <form class="sign-in-sign-up-form" method="post" action="{{ route('register.store') }}">
+                                @csrf
                                 <div class="text-center mb-4 application-logo">
                                     <img src="{{ url('/uploads/logo/default-logo.png') }}" alt=""
                                         class="img-fluid logo">
@@ -57,7 +58,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-12">
                                         <label for="conf-password">Confirm Password</label>
-                                        <input id="conf-password" name="confirmation_password" type="password"
+                                        <input id="conf-password" name="password_confirmation" type="password"
                                             class="form-control">
                                     </div>
                                 </div>
@@ -72,14 +73,14 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-6 ">
-                                        <a href="#" class="bluish-text">
-                                            {{-- <i class="las la-home" /> --}}
+                                        <a href="{{ route('home') }}" class="bluish-text">
+                                            <i class="las la-home"> </i>
                                             Back to Home
                                         </a>
                                     </div>
                                     <div class="form-group col-6 text-right">
-                                        <a href="#" class="bluish-text">
-                                            {{-- <i class="las la-lock" /> --}}
+                                        <a href="{{ route('login') }}" class="bluish-text">
+                                            <i class="las la-lock"> </i>
                                             Login Here
                                         </a>
                                     </div>
