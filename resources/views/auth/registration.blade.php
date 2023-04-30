@@ -64,7 +64,8 @@
                                 </div>
                                 <div class="form-row loginButton">
                                     <div class="form-group col-12">
-                                        <button class="btn btn-info mobile-btn d-inline-flex" type="submit">
+                                        <button class="btn btn-info btn-outline-info mobile-btn d-inline-flex"
+                                            type="submit">
                                             <span class="w-100">
                                                 Registration
                                             </span>

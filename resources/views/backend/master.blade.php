@@ -81,6 +81,14 @@
             background: transparent;
             color: white;
         }
+
+        .form-control {
+            font-size: 18px;
+        }
+
+        .label {
+            font-size: 100%;
+        }
     </style>
 </head>
 

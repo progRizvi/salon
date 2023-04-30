@@ -26,6 +26,14 @@
             margin-top: 100px;
             z-index: 10000;
         }
+
+        .mobile-btn:hover {
+            color: #fff;
+        }
+
+        .text-info.mobile-btn:hover {
+            color: #fff;
+        }
     </style>
 </head>
 
