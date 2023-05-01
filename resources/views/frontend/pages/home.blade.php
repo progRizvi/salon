@@ -86,18 +86,14 @@
 
                                                     <select name="service_id" id="service_id" class="form-control">
 
-                                                        <option value="">select</option>
+                                                        <option value="">Select a Service</option>
 
                                                         @if ($services->count() > 1)
                                                             @foreach ($services as $service)
                                                                 <option value="{{ $service->id }}">{{ $service->title }}
                                                                 </option>
                                                             @endforeach
-                                                        @else
-                                                            <option value="{{ $services->id }}">{{ $services->title }}
-                                                            </option>
                                                         @endif
-
                                                     </select>
                                                 </div>
                                                 <div class="col-12 col-sm-12 col-md-4 col-lg-4">
@@ -550,16 +546,12 @@
                         service_id: service_id
                     },
                     success: function(response) {
-                        console.log(response);
-                        toastr.error("response.message");
-                        $.notify("BOOM!", "error");
                         $("#available").html(response.available_seat);
                         if (response.available_seat == 0) {
                             $("#seat").html(`<span class='badge badge-no-slot'>
                                                                     No Slots Available
                                                                 </span>`);
                         }
-                        console.log(response);
                     }
                 })
             })

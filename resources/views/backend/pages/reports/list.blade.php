@@ -66,6 +66,7 @@
                                 <th>Name</th>
                                 <th>Service</th>
                                 <th>Booking Date</th>
+                                <th>Amount</th>
                                 <th>Payment Status</th>
                             </tr>
                             @if ($bookings->count() == 0)
@@ -79,6 +80,8 @@
                                         <td>{{ $booking->user->name }}</td>
                                         <td>{{ $booking->service->title }}</td>
                                         <td>{{ $booking->booking_date }}</td>
+                                        <td>BDT {{ $booking->booking_bill }}
+                                        </td>
                                         <td>{{ $booking->payment_status }}</td>
                                     </tr>
                                 @endforeach
