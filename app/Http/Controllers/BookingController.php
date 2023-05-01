@@ -33,7 +33,7 @@ class BookingController extends Controller
     {
         $validation = Validator::make($request->all(), [
             "booking_date" => "required|date|after_or_equal:today",
-            "booking_time" => "required|time|after_or_equal:today",
+            "booking_time" => "required",
         ]);
         if ($validation->fails()) {
             foreach ($validation->errors()->all() as $error) {
