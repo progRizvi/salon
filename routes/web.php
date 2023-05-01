@@ -40,6 +40,8 @@ Route::middleware("auth")->group(function () {
     Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
     Route::get("/myprofile", [DashboardController::class, "myprofile"])->name("myprofile");
     Route::post("/profile/update", [DashboardController::class, "profileUpdate"])->name("profile.update");
+    Route::get("/booking/edit/{id}", [BookingController::class, "edit"])->name("bookings.edit");
+    Route::post("/booking/update/{id}", [BookingController::class, "update"])->name("bookings.update");
 
     Route::middleware("checkAdmin")->group(function () {
         Route::get("/service", [ServiceController::class, "index"])->name("service.index");
@@ -51,8 +53,7 @@ Route::middleware("auth")->group(function () {
         // Bookings
         Route::get("/bookings", [BookingController::class, "index"])->name("bookings.index");
         Route::get("/booking/show/{id}", [BookingController::class, "show"])->name("bookings.show");
-        Route::get("/booking/edit/{id}", [BookingController::class, "edit"])->name("bookings.edit");
-        Route::get("/booking/update/{id}", [BookingController::class, "update"])->name("bookings.update");
+
         Route::get("/booking/confirm/{id}", [BookingController::class, "confirm"])->name("bookings.confirm");
         Route::get("/booking/cancel/{id}", [BookingController::class, "cancel"])->name("bookings.cancel");
         Route::get("/booking/pay/{id}", [BookingController::class, "pay"])->name("bookings.pay");

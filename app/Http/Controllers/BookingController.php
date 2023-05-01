@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Service;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BookingController extends Controller
 {
@@ -30,7 +31,23 @@ class BookingController extends Controller
     }
     public function update(Request $request, $id)
     {
-
+        $validation = Validator::make($request->all(), [
+            "booking_date" => "required|date|after_or_equal:today",
+            "booking_time" => "required|time|after_or_equal:today",
+        ]);
+        if ($validation->fails()) {
+            foreach ($validation->errors()->all() as $error) {
+                notify()->error($error);
+            }
+            return back();
+        }
+        $booking = Booking::find($id);
+        $booking->update([
+            "booking_date" => $request->booking_date,
+            "booking_time" => $request->booking_time,
+        ]);
+        notify()->success("Booking updated successfully");
+        return redirect()->route("bookings.index");
     }
     public function confirm($id)
     {
