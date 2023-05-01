@@ -74,7 +74,8 @@
                                                             <label for="" class="label">Available space per service
                                                                 <br></label>
                                                             <input type="number" class="form-control"
-                                                                style="margin-bottom:20px" name="available_space">
+                                                                style="margin-bottom:20px" name="available_space"
+                                                                min="1">
                                                         </div>
                                                         <div class="">
                                                             <label for="" class="label">Service Starting Date
@@ -109,7 +110,8 @@
                                                         <label for="" class="label">Price per space
                                                             <br></label>
                                                         <input type="number" class="form-control"
-                                                            style="margin-bottom:20px" name="price_per_space">
+                                                            style="margin-bottom:20px" name="price_per_space"
+                                                            min="1">
                                                     </div>
                                                     <div class="">
                                                         <label for="" class="label">Service ends

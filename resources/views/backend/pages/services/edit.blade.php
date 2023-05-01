@@ -76,7 +76,7 @@
                                                                 <br></label>
                                                             <input type="number" class="form-control"
                                                                 style="margin-bottom:20px" name="available_space"
-                                                                value="{{ $service->available_seat }}">
+                                                                value="{{ $service->available_seat }}" min="1">
                                                         </div>
                                                         <div class="">
                                                             <label for="" class="label">Service Starting Date
@@ -115,7 +115,7 @@
                                                             <br></label>
                                                         <input type="number" class="form-control"
                                                             style="margin-bottom:20px" name="price_per_space"
-                                                            value="{{ $service->price }}">
+                                                            value="{{ $service->price }}" min="1">
                                                     </div>
                                                     <div class="">
                                                         <label for="" class="label">Service ends

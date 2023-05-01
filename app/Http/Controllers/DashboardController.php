@@ -17,8 +17,8 @@ class DashboardController extends Controller
         $countBookings['pendingBookings'] = Booking::where("status", "pending")->count();
         $countBookings['confirmedBookings'] = Booking::where("status", "confirmed")->count();
         $countBookings['cancelBookings'] = Booking::where("status", "cancel")->count();
-        $countBookings["thisMonth"] = Booking::whereMonth("created_at", date("m"))->count();
-        $countBookings["lastMonth"] = Booking::whereMonth("created_at", date("m", strtotime("-1 month")))->count();
+        $countBookings["thisMonth"] = Booking::whereMonth("booking_date", date("m"))->count();
+        $countBookings["lastMonth"] = Booking::whereMonth("booking_date", date("m", strtotime("-1 month")))->count();
 
         if (auth()->user()->is_admin == 0) {
             $allBookings = Booking::where("user_id", auth()->user()->id);

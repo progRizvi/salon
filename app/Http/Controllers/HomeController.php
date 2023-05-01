@@ -12,9 +12,6 @@ class HomeController extends Controller
     public function index()
     {
         $services = Service::all();
-        if ($services->count() == 1) {
-            $services = $services[0];
-        }
 
         return view('frontend.pages.home', compact('services'));
     }

@@ -83,12 +83,12 @@
                                         <div class="bg-white banner-content rounded-sm bottom-radius-0">
                                             <div class="row">
                                                 <div class="col-12 col-sm-12 col-md-4 col-lg-4">
-
-                                                    <select name="service_id" id="service_id" class="form-control">
+                                                    <select name="service_id" id="service_id" class="form-control"
+                                                        onchange="serviceChange()">
 
                                                         <option value="">Select a Service</option>
 
-                                                        @if ($services->count() > 1)
+                                                        @if ($services->count() > 0)
                                                             @foreach ($services as $service)
                                                                 <option value="{{ $service->id }}">{{ $service->title }}
                                                                 </option>
@@ -314,7 +314,7 @@
                                                 </div>
                                                 <div class="card-footer pt-0">
                                                     <a href="#" class="btn btn-landing"
-                                                        @click.prevent="serviceBook(serviceData)">
+                                                        data-id="{{ $service->id }}" id="booking-btn">
                                                         Book
                                                     </a>
                                                 </div>
@@ -330,19 +330,19 @@
                                                 <div class="row">
                                                     <div class="col-12 col-sm-4 pr-sm-0">
                                                         <div class="service-img-container rounded-left-img-container"
-                                                            style="background-image: url({{ url('/images/', $services->image) }})">
+                                                            style="background-image: url({{ url('/images/', $services[0]->image) }})">
                                                         </div>
                                                     </div>
                                                     <div class="col-12 col-sm-8 pl-sm-0">
                                                         <div class="card-body">
                                                             <div class="mb-3 service-title">
                                                                 <h4>
-                                                                    {{ $services->title }}
+                                                                    {{ $services[0]->title }}
                                                                 </h4>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <p class="text-with-opacity">
-                                                                    {{ $services->description }}
+                                                                    {{ $services[0]->description }}
                                                                 </p>
                                                             </div>
                                                             <div class="row">
@@ -354,7 +354,7 @@
                                                                             <p class="service-info-heading">
                                                                                 Duration:</p>
                                                                             <p class="service-info-value mb-0">
-                                                                                {{ $services->service_duration }}
+                                                                                {{ $services[0]->service_duration }}
                                                                             </p>
                                                                         </div>
                                                                     </div>
@@ -369,7 +369,7 @@
                                                                                 Price Per Person:
                                                                             </p>
                                                                             <p class="service-info-value mb-0">
-                                                                                {{ $services->price }}
+                                                                                {{ $services[0]->price }}
                                                                             </p>
                                                                         </div>
                                                                     </div>
@@ -382,7 +382,7 @@
                                                                                 Capacity Per Service:
                                                                             </p>
                                                                             <p class="service-info-value mb-0">
-                                                                                {{ $services->available_seat }}
+                                                                                {{ $services[0]->available_seat }}
                                                                             </p>
                                                                         </div>
                                                                     </div>
@@ -390,7 +390,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="card-footer pt-0">
-                                                            <a href="#" class="btn btn-landing">
+                                                            <a href="#" class="btn btn-landing"
+                                                                data-id="{{ $services[0]->id }}" id="booking-btn">
                                                                 Book
                                                             </a>
                                                         </div>
@@ -507,8 +508,34 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+
             $(document).on("change", "#service_id", function() {
                 var service_id = $(this).val();
+                $.ajax({
+                    url: "{{ route('service.get') }}",
+                    type: "POST",
+                    data: {
+                        service_id: service_id
+                    },
+                    success: function(response) {
+                        $("#service_title").html(response.title);
+                        $("#service_description").html(response.description);
+                        $("#unit_price").html("BDT" + response.price);
+                        $("#available").html(response.available_seat);
+                        $(".service-image-wrapper").css("background-image",
+                            `url({{ url('images/') }}/${response.image})`);
+                        console.log(response);
+                        if (response.available_seat == 0) {
+                            $("#seat").html(`<span class='badge badge-no-slot'>
+            No Slots Available
+        </span>`);
+                        }
+                    }
+                })
+            })
+
+            function serviceChange() {
+                var service_id = $('#service_id"').val();
                 $.ajax({
                     url: "{{ route('service.get') }}",
                     type: "POST",
@@ -530,7 +557,7 @@
                         }
                     }
                 })
-            })
+            }
             $(document).on("change", "#bookings_date", function() {
                 var bookings_date = $(this).val();
                 var service_id = $("#service_id").val();
@@ -607,6 +634,37 @@
                 if (total_price) {
                     $("#total_amount").val(total_price);
                 }
+            })
+            $(document).on("click", "#booking-btn", function() {
+                const serviceId = $(this).data("id");
+                const servicesOptions = $("#service_id > option");
+                const service = servicesOptions.filter(function() {
+                    $(this).val() == serviceId;
+                    $(this).attr("selected", "selected");
+                })
+                var service_id = serviceId
+                $.ajax({
+                    url: "{{ route('service.get') }}",
+                    type: "POST",
+                    data: {
+                        service_id: service_id
+                    },
+                    success: function(response) {
+                        $("#service_title").html(response.title);
+                        $("#service_description").html(response.description);
+                        $("#unit_price").html("BDT" + response.price);
+                        $("#available").html(response.available_seat);
+                        $(".service-image-wrapper").css("background-image",
+                            `url({{ url('images/') }}/${response.image})`);
+                        console.log(response);
+                        if (response.available_seat == 0) {
+                            $("#seat").html(`<span class='badge badge-no-slot'>
+            No Slots Available
+        </span>`);
+                        }
+                    }
+                })
+
             })
         })
     </script>
