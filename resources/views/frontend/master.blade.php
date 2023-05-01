@@ -17,6 +17,7 @@
     <link href='{{ asset('line-awesome/css/line-awesome.min.css') }}' rel='stylesheet'>
     <link href='{{ asset('css/app.css') }}' rel='stylesheet'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -52,7 +53,27 @@
         <script src='{{ asset('/js/accounting.js') }}'></script>
         <script src='{{ asset('/js/app.js') }}'></script>
         <script src="https://checkout.stripe.com/checkout.js"></script>
-
+        <script src="cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script>
+            Command: toastr["error"]("My name is Inigo Montoya. You killed my father. Prepare to die!")
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "3000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        </script>
         <script>
             $.ajaxSetup({
                 headers: {

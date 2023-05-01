@@ -18,7 +18,7 @@ class CheckAdmin
         if (auth()->user()->is_admin === 1) {
             return $next($request);
         }
-        notify()->error("UnAuthorized! You Are Not Admin");
+        notify()->error("Unauthorized! You Are Not Admin");
         return redirect()->back();
     }
 }

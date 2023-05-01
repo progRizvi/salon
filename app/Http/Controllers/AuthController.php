@@ -65,7 +65,6 @@ class AuthController extends Controller
         if (!auth()->user()) {
             notify()->success("Logout Success");
         }
-        return to_route('login');
+        return to_route('home');
     }
-
 }

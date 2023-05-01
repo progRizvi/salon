@@ -550,6 +550,9 @@
                         service_id: service_id
                     },
                     success: function(response) {
+                        console.log(response);
+                        toastr.error("response.message");
+                        $.notify("BOOM!", "error");
                         $("#available").html(response.available_seat);
                         if (response.available_seat == 0) {
                             $("#seat").html(`<span class='badge badge-no-slot'>

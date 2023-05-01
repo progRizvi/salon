@@ -7,30 +7,32 @@
                     <span class="mini-click-non">Dashboard</span>
                 </a>
             </li>
-            <li class="active">
-                <a class="" href="{{ route('service.index') }}">
-                    <i class="la la-globe"></i>
-                    <span class="mini-click-non">Services</span>
-                </a>
-            </li>
-            <li class="active">
-                <a class="" href="{{ route('bookings.index') }}">
-                    <i class="la la-credit-card"></i>
-                    <span class="mini-click-non">Bookings</span>
-                </a>
-            </li>
-            <li class="active">
-                <a class="" href="{{ route('clients.index') }}">
-                    <i class="la la-users"></i>
-                    <span class="mini-click-non">Clients</span>
-                </a>
-            </li>
-            <li class="active">
-                <a class="" href="{{ route('reports') }}">
-                    <i class="la la-pie-chart"></i>
-                    <span class="mini-click-non">Reports</span>
-                </a>
-            </li>
+            @if (auth()->user()->is_admin == 1)
+                <li class="active">
+                    <a class="" href="{{ route('service.index') }}">
+                        <i class="la la-globe"></i>
+                        <span class="mini-click-non">Services</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a class="" href="{{ route('bookings.index') }}">
+                        <i class="la la-credit-card"></i>
+                        <span class="mini-click-non">Bookings</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a class="" href="{{ route('clients.index') }}">
+                        <i class="la la-users"></i>
+                        <span class="mini-click-non">Clients</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a class="" href="{{ route('reports') }}">
+                        <i class="la la-pie-chart"></i>
+                        <span class="mini-click-non">Reports</span>
+                    </a>
+                </li>
+            @endif
         </ul>
     </nav>
 </div>

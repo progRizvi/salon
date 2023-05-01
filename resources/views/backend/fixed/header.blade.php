@@ -700,6 +700,7 @@
     </div>
     <!-- Mobile Menu start -->
 
+    {{--
     <div class="mobile-menu-area">
         <div class="container">
             <div class="row">
@@ -850,6 +851,7 @@
             </div>
         </div>
     </div>
+     --}}
     <!-- Mobile Menu end -->
 
 </div>

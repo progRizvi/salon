@@ -7,6 +7,7 @@ use App\Models\Booking;
 use App\Models\Service;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SslCommerzPaymentController extends Controller
 {
@@ -23,21 +24,41 @@ class SslCommerzPaymentController extends Controller
 
     public function index(Request $request)
     {
-        // dd($request->all());
 
-        $bookings = Booking::whereDate("created_at", now())->where('service_id', $request->service_id)->get();
+        $validation = Validator::make($request->all(), [
+            'bookings_date' => 'required|after_or_equal:today',
+            'booking_time' => 'required',
+            'phone_number' => 'required',
+            'service_id' => 'required',
+        ]);
+        if ($validation->fails()) {
+            foreach ($validation->errors()->all() as $error) {
+                notify()->error($error);
+            }
+            return back();
+        }
+        $bookings = Booking::whereDate("booking_date", now()->parse($request->bookings_date))->where('service_id', $request->service_id)->select("adult", "children")->get()->toArray();
         $service = Service::find($request->service_id);
+
+        $bookingsCount = [];
+        foreach ($bookings as $booking) {
+            $bookingsCount[] = array_sum($booking);
+        }
+        $bookingsCount = array_sum($bookingsCount);
 
         // if ($bookings->where() >= $service->available_seat) {
         //     notify()->error("Booking Full");
         //     return back();
         // }
-
-        if ($bookings->count() >= $service->available_seat) {
+        if ($bookingsCount >= $service->available_seat) {
             notify()->error("Booking Full");
             return back();
         }
-
+        $remainSlot = $service->available_seat - $bookingsCount;
+        if ($request['adult-selection'] + $request['child-selection'] > $remainSlot) {
+            notify()->error("Select Less Seat or Equal $remainSlot");
+            return back();
+        }
         # Here you have to receive all the order data to initate the payment.
         # Let's say, your oder transaction informations are saving in a table called "orders"
         # In "orders" table, order unique identity is "transaction_id". "status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
@@ -92,6 +113,7 @@ class SslCommerzPaymentController extends Controller
                 'phone_number' => $post_data['phone_number'],
                 'status' => 'pending',
                 'booking_date' => $post_data['booking_date'],
+                "transaction_id" => $post_data['tran_id'],
                 'booking_time' => $post_data['booking_time'],
                 'adult' => $post_data['adult'],
                 'children' => $post_data['children'],
@@ -197,7 +219,7 @@ class SslCommerzPaymentController extends Controller
             ->select('transaction_id', 'status', 'booking_bill')->first();
 
         if ($order_details->status == 'Pending') {
-            $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency);
+            $validation = $sslc->orderValidate($request->all(), $tran_id, $amount);
 
             if ($validation) {
                 /*

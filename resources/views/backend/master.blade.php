@@ -144,6 +144,7 @@
 
     {{-- All external js files --}}
     @include('backend.fixed.jsFile')
+    @yield('scripts')
 </body>
 
 </html>

@@ -5,6 +5,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Support\Facades\Route;
@@ -57,7 +58,7 @@ Route::middleware("auth")->group(function () {
         Route::get("/booking/pay/{id}", [BookingController::class, "pay"])->name("bookings.pay");
 
         Route::get("/clients", [ClientController::class, "index"])->name("clients.index");
-        Route::get("/reports", [BookingController::class, "index"])->name("reports");
+        Route::get("/reports", [ReportController::class, "index"])->name("reports");
     });
 
 });
