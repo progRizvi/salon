@@ -323,84 +323,87 @@
                                     @endforeach
                                 </div>
                             @else
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="card">
-                                                <div class="row">
-                                                    <div class="col-12 col-sm-4 pr-sm-0">
-                                                        <div class="service-img-container rounded-left-img-container"
-                                                            style="background-image: url({{ url('/images/', $services[0]->image) }})">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-sm-8 pl-sm-0">
-                                                        <div class="card-body">
-                                                            <div class="mb-3 service-title">
-                                                                <h4>
-                                                                    {{ $services[0]->title }}
-                                                                </h4>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <p class="text-with-opacity">
-                                                                    {{ $services[0]->description }}
-                                                                </p>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="media mb-3">
-                                                                        <i class="far fa-clock align-self-center mr-2">
-                                                                        </i>
-                                                                        <div class="media-body">
-                                                                            <p class="service-info-heading">
-                                                                                Duration:</p>
-                                                                            <p class="service-info-value mb-0">
-                                                                                {{ $services[0]->service_duration }}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="media mb-3">
-                                                                        <i
-                                                                            class="fas fa-dollar-sign align-self-center mr-2">
-                                                                        </i>
-                                                                        <div class="media-body">
-                                                                            <p class="service-info-heading">
-                                                                                Price Per Person:
-                                                                            </p>
-                                                                            <p class="service-info-value mb-0">
-                                                                                {{ $services[0]->price }}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="media">
-                                                                        <i class="fas fa-chair align-self-center mr-2"></i>
-                                                                        <div class="media-body">
-                                                                            <p class="service-info-heading">
-                                                                                Capacity Per Service:
-                                                                            </p>
-                                                                            <p class="service-info-value mb-0">
-                                                                                {{ $services[0]->available_seat }}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                @if ($services->count() > 0)
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-4 pr-sm-0">
+                                                            <div class="service-img-container rounded-left-img-container"
+                                                                style="background-image: url({{ url('/images/', $services[0]->image) }})">
                                                             </div>
                                                         </div>
-                                                        <div class="card-footer pt-0">
-                                                            <a href="#" class="btn btn-landing"
-                                                                data-id="{{ $services[0]->id }}" id="booking-btn">
-                                                                Book
-                                                            </a>
+                                                        <div class="col-12 col-sm-8 pl-sm-0">
+                                                            <div class="card-body">
+                                                                <div class="mb-3 service-title">
+                                                                    <h4>
+                                                                        {{ $services[0]->title }}
+                                                                    </h4>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <p class="text-with-opacity">
+                                                                        {{ $services[0]->description }}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="media mb-3">
+                                                                            <i class="far fa-clock align-self-center mr-2">
+                                                                            </i>
+                                                                            <div class="media-body">
+                                                                                <p class="service-info-heading">
+                                                                                    Duration:</p>
+                                                                                <p class="service-info-value mb-0">
+                                                                                    {{ $services[0]->service_duration }}
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="media mb-3">
+                                                                            <i
+                                                                                class="fas fa-dollar-sign align-self-center mr-2">
+                                                                            </i>
+                                                                            <div class="media-body">
+                                                                                <p class="service-info-heading">
+                                                                                    Price Per Person:
+                                                                                </p>
+                                                                                <p class="service-info-value mb-0">
+                                                                                    {{ $services[0]->price }}
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="media">
+                                                                            <i
+                                                                                class="fas fa-chair align-self-center mr-2"></i>
+                                                                            <div class="media-body">
+                                                                                <p class="service-info-heading">
+                                                                                    Capacity Per Service:
+                                                                                </p>
+                                                                                <p class="service-info-value mb-0">
+                                                                                    {{ $services[0]->available_seat }}
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer pt-0">
+                                                                <a href="#" class="btn btn-landing"
+                                                                    data-id="{{ $services[0]->id }}" id="booking-btn">
+                                                                    Book
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                            @endif
+                                @endif
                         </div>
 
                         <!-- Single service -->
