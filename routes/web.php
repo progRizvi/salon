@@ -49,6 +49,7 @@ Route::middleware("auth")->group(function () {
         Route::post("/service/store", [ServiceController::class, "store"])->name("service.store");
         Route::get("/service/edit/{id}", [ServiceController::class, "edit"])->name("service.edit");
         Route::post("/service/store/{id}", [ServiceController::class, "update"])->name("service.update");
+        Route::get("/service/delete/{id}", [ServiceController::class, "delete"])->name("service.delete");
 
         // Bookings
         Route::get("/bookings", [BookingController::class, "index"])->name("bookings.index");

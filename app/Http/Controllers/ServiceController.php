@@ -21,7 +21,7 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'title' => 'required',
+            'title' => 'required|unique:services,title',
             'price_per_space' => 'required',
             'multi_bookings' => 'required',
             'available_space' => 'required',
@@ -108,5 +108,12 @@ class ServiceController extends Controller
         notify()->success('Service updated successfully');
         return redirect()->route('service.index');
 
+    }
+    public function delete($id)
+    {
+        $service = Service::find($id);
+        $service->delete();
+        notify()->success('Service deleted successfully');
+        return redirect()->route('service.index');
     }
 }
