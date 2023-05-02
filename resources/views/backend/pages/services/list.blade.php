@@ -61,8 +61,8 @@
                                         <a href="{{ route('service.edit', $service->id) }}" data-toggle="tooltip"
                                             title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o"
                                                 aria-hidden="true"></i></a>
-                                        <a href="{{ route('service.delete') }}" title="Trash" class="pd-setting-ed"><i
-                                                class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        <a href="{{ route('service.delete', $service->id) }}" title="Trash"
+                                            class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
